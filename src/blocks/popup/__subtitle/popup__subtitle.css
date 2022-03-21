@@ -1,0 +1,7 @@
+.popup__subtitle {
+  color: #fff;
+  margin: 0;
+  padding-top: 10px;
+  font-size: 12px;
+  line-height: calc(15 / 12);
+}

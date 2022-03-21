@@ -1,0 +1,15 @@
+.header__auth {
+  display: flex;
+  gap: 24px;
+  font-size: 18px;
+  line-height: calc(22 / 18);
+  font-weight: 400;
+  align-items: center;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1024px) {
+  .header__auth {
+    padding-right: 30px;
+  }
+}

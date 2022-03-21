@@ -1,0 +1,9 @@
+.auth__input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: rgba(255, 255, 255, 1);
+  height: 27px;
+  outline-color: transparent;
+}

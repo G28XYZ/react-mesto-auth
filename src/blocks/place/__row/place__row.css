@@ -1,0 +1,8 @@
+.place__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 20px 22px 21px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
