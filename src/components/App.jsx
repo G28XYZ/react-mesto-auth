@@ -189,7 +189,7 @@ function App() {
     api
       .patchAvatar(avatar)
       .then((user) => {
-        setCurrentUser(...currentUser, ...user);
+        setCurrentUser({ ...currentUser, ...user });
         closeAllPopups();
       })
       .catch((err) =>

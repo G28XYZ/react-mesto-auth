@@ -2,11 +2,11 @@
 
 ### Демо
 
-<img style="margin: 0 auto;" src='https://github.com/G28XYZ/g28xyz.github.io/blob/08687c3688aa33f26742891eb9495fcc32cd22bb/video/mesto.gif?raw=true' alt="анимация - mesto">
+<img style="margin: 0 auto;" src='https://github.com/G28XYZ/G28XYZ/blob/main/images/demo-auth.gif?raw=true' alt="анимация - mesto">
 
 ## О сайте
 
-Сервис [Mesto](https://g28xyz.github.io/mesto/ "Ссылка на сайт"): интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки.
+Сервис [Mesto](https://g28xyz.github.io/mesto/ "Ссылка на сайт"): интерактивная страница, куда можно зарегистрироваться и добавлять фотографии, удалять их и ставить лайки.
 
 ## О проекте и технологиях разработки
 
@@ -26,8 +26,10 @@
     </ul>
   </li>
     <li>Объектно-ориентированное программирование (ООП)</li>
+    <li>React</li>
     <li>Webpack</li>
     <li>API</li>
+    <li>Регистрация и авторизация</li>
 </ul>
 
 ## Планы по доработке
