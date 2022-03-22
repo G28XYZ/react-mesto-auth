@@ -1,18 +1,8 @@
 import successImage from "../images/success.png";
 import deniedImage from "../images/denied.png";
 
-const InfoToolTip = ({ isOpen, info, onClose }) => {
-  const messages = {
-    false: {
-      image: deniedImage,
-      message: "Что-то пошло не так! Попробуйте ещё раз.",
-    },
-    true: {
-      image: successImage,
-      message: "Вы успешно зарегистрировались!",
-    },
-  };
-
+const InfoToolTip = ({ isOpen, infoRegister, onClose }) => {
+  const { isRegister, message } = infoRegister;
   return (
     <div className={`popup ${isOpen && "popup_opened"}`}>
       <div className="popup__container" style={{ textAlign: "center" }}>
@@ -24,11 +14,11 @@ const InfoToolTip = ({ isOpen, info, onClose }) => {
         ></button>
         <img
           className="popup__icon"
-          src={messages[info].image}
+          src={isRegister ? successImage : deniedImage}
           style={{ paddingTop: 24, paddingBottom: 32 }}
         />
         <h3 className="popup__title" style={{ paddingBottom: 25 }}>
-          {messages[info].message}{" "}
+          {message}
         </h3>
       </div>
     </div>

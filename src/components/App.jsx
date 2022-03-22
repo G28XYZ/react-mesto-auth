@@ -37,7 +37,10 @@ function App() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [infoRegister, setInfoRegister] = useState(false);
+  const [infoRegister, setInfoRegister] = useState({
+    isRegister: false,
+    message: "Что-то пошло не так! Попробуйте ещё раз.",
+  });
 
   useEffect(() => {
     handleTokenCheck();
@@ -59,10 +62,18 @@ function App() {
   function handleTokenCheck() {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
-      auth.getUser(jwt).then(({ data: { email } }) => {
-        setCurrentUser({ ...currentUser, email });
-        setLoggedIn(true);
-      });
+      auth
+        .getUser(jwt)
+        .then(({ data: { email } }) => {
+          setCurrentUser({ ...currentUser, email });
+          setLoggedIn(true);
+        })
+        .catch((err) =>
+          setErrorPopup({
+            isOpen: true,
+            message: `Ошибка авторизации токена: ${err}`,
+          })
+        );
     }
   }
 
@@ -142,11 +153,14 @@ function App() {
       .registration(data)
       .then(({ data: { email } }) => {
         setCurrentUser({ ...currentUser, email });
-        setInfoRegister(true);
+        setInfoRegister({ isRegister: true, message: "Вы успешно зарегистрировались!" });
         setIsInfoToolTipOpen(true);
         navigate();
       })
-      .catch(() => setIsInfoToolTipOpen(true));
+      .catch(() => {
+        setIsInfoToolTipOpen(true);
+        setInfoRegister({ isRegister: false, message: "Что-то пошло не так! Попробуйте ещё раз." });
+      });
   }
 
   function handleExitProfile() {
@@ -288,7 +302,11 @@ function App() {
         message={errorPopup.message}
       />
 
-      <InfoToolTip isOpen={isInfoToolTipOpen} info={infoRegister} onClose={closeAllPopups} />
+      <InfoToolTip
+        isOpen={isInfoToolTipOpen}
+        infoRegister={infoRegister}
+        onClose={closeAllPopups}
+      />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>
