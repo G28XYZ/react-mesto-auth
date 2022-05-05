@@ -1,27 +1,25 @@
-import { addressAuth } from "./constants";
+import { address } from "./constants";
 
 class Auth {
   constructor(address) {
     this._address = address;
     this._headers = {
       "Content-Type": "application/json",
-      "Content-Type": "application/json",
     };
   }
 
   _handleResponse = (response) => {
-    return response.ok
-      ? response.json()
-      : Promise.reject(`Ошибка ${response.status}`);
+    return response.ok ? response.json() : Promise.reject(`Ошибка ${response.status}`);
   };
 
   registration({ email, password }) {
     return fetch(`${this._address}/signup`, {
       method: "POST",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
-        password,
         email,
+        password,
       }),
     }).then(this._handleResponse);
   }
@@ -29,6 +27,7 @@ class Auth {
   authorization({ email, password }) {
     return fetch(`${this._address}/signin`, {
       method: "POST",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         password,
@@ -40,11 +39,15 @@ class Auth {
   getUser(jwt) {
     return fetch(`${this._address}/users/me`, {
       method: "GET",
-      headers: { ...this._headers, Authorization: `Bearer ${jwt}` },
+      credentials: "include",
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${jwt}`,
+      },
     }).then(this._handleResponse);
   }
 }
 
-const auth = new Auth(addressAuth);
+const auth = new Auth(address);
 
 export default auth;

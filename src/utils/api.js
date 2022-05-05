@@ -13,19 +13,21 @@ class Api {
   }
 
   _handleResponse = (response) => {
-    return response.ok
-      ? response.json()
-      : Promise.reject(`Ошибка ${response.status}`);
+    return response.ok ? response.json() : Promise.reject(`Ошибка ${response.status}`);
   };
 
   getCards() {
     return fetch(`${this._address}/cards`, {
+      method: "GET",
+      credentials: "include",
       headers: this._headers,
     }).then(this._handleResponse);
   }
 
   getUserInfo() {
     return fetch(`${this._address}/users/me`, {
+      method: "GET",
+      credentials: "include",
       headers: this._headers,
     }).then(this._handleResponse);
   }

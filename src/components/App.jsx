@@ -47,6 +47,7 @@ function App() {
     if (loggedIn) {
       Promise.all([api.getUserInfo(), api.getCards()])
         .then(([user, cards]) => {
+          console.log(user);
           setCurrentUser({ ...currentUser, ...user });
           setCards(cards);
         })
@@ -64,7 +65,7 @@ function App() {
     if (jwt) {
       auth
         .getUser(jwt)
-        .then(({ data: { email } }) => {
+        .then(({ email }) => {
           setCurrentUser({ ...currentUser, email });
           setLoggedIn(true);
         })
@@ -140,8 +141,8 @@ function App() {
     e.preventDefault();
     auth
       .authorization(data)
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
+      .then(({ token }) => {
+        localStorage.setItem("jwt", token);
         handleTokenCheck();
       })
       .catch(() => setIsInfoToolTipOpen(true));
@@ -151,7 +152,8 @@ function App() {
     e.preventDefault();
     auth
       .registration(data)
-      .then(({ data: { email } }) => {
+      .then(({ email }) => {
+        console.log(email);
         setCurrentUser({ ...currentUser, email });
         setInfoRegister({ isRegister: true, message: "Вы успешно зарегистрировались!" });
         setIsInfoToolTipOpen(true);
