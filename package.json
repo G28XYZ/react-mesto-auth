@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build-server": "react-scripts build && scp -r ./build/* praktikum@51.250.98.91:~/mesto-frontend",
+    "build-server": "react-scripts build && scp -r ./build/* praktikum@51.250.98.91:~/react-mesto-api-full/frontend",
     "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"

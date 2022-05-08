@@ -47,7 +47,6 @@ function App() {
     if (loggedIn) {
       Promise.all([api.getUserInfo(), api.getCards()])
         .then(([user, cards]) => {
-          console.log(user);
           setCurrentUser({ ...currentUser, ...user });
           setCards(cards);
         })
@@ -66,6 +65,7 @@ function App() {
       auth
         .getUser(jwt)
         .then(({ email }) => {
+          api.setHeadersAuth(jwt);
           setCurrentUser({ ...currentUser, email });
           setLoggedIn(true);
         })
@@ -101,7 +101,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((likeId) => likeId === currentUser._id);
     api
       .likeCard(card._id, isLiked)
       .then((newCard) => {
@@ -143,6 +143,7 @@ function App() {
       .authorization(data)
       .then(({ token }) => {
         localStorage.setItem("jwt", token);
+        api.setHeadersAuth(token);
         handleTokenCheck();
       })
       .catch(() => setIsInfoToolTipOpen(true));
@@ -153,7 +154,6 @@ function App() {
     auth
       .registration(data)
       .then(({ email }) => {
-        console.log(email);
         setCurrentUser({ ...currentUser, email });
         setInfoRegister({ isRegister: true, message: "Вы успешно зарегистрировались!" });
         setIsInfoToolTipOpen(true);
@@ -167,6 +167,7 @@ function App() {
 
   function handleExitProfile() {
     localStorage.removeItem("jwt");
+    api.setHeadersAuth("");
     setCurrentUser(defaultUser);
     setLoggedIn(false);
   }

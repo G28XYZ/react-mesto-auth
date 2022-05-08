@@ -3,6 +3,7 @@ import { address } from "./constants";
 class Auth {
   constructor(address) {
     this._address = address;
+    this.jwt = localStorage.getItem("jwt");
     this._headers = {
       "Content-Type": "application/json",
     };
@@ -30,8 +31,8 @@ class Auth {
       credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
-        password,
         email,
+        password,
       }),
     }).then(this._handleResponse);
   }
@@ -40,10 +41,7 @@ class Auth {
     return fetch(`${this._address}/users/me`, {
       method: "GET",
       credentials: "include",
-      headers: {
-        ...this._headers,
-        Authorization: `Bearer ${jwt}`,
-      },
+      headers: { ...this._headers, Authorization: `Bearer ${jwt}` },
     }).then(this._handleResponse);
   }
 }

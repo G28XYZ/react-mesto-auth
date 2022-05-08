@@ -3,20 +3,13 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Card({ card, onCardClick, onCardLike, onConfirmDelete }) {
   const { _id } = useContext(CurrentUserContext);
-  const isOwn = card.owner._id === _id;
-  const isLiked = card.likes.some((i) => i._id === _id);
-  const cardLikeButtonClassName = isLiked
-    ? "place__like place__like_active"
-    : "place__like";
+  const isOwn = card.owner === _id;
+  const isLiked = card.likes.some((likeId) => likeId === _id);
+  const cardLikeButtonClassName = isLiked ? "place__like place__like_active" : "place__like";
 
   return (
     <article key={card._id} className="place">
-      <img
-        onClick={onCardClick}
-        src={card.link}
-        alt={card.name}
-        className="place__image"
-      />
+      <img onClick={onCardClick} src={card.link} alt={card.name} className="place__image" />
       {isOwn && (
         <button
           aria-label="Удалить"

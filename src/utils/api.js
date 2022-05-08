@@ -1,13 +1,12 @@
 "use strict";
 
-import { token, address } from "../utils/constants.js";
+import { address } from "../utils/constants.js";
 
 class Api {
-  constructor({ address, token }) {
+  constructor({ address }) {
     this._address = address;
-    this._token = token;
+    this._token = "";
     this._headers = {
-      authorization: this._token,
       "Content-Type": "application/json",
     };
   }
@@ -88,11 +87,14 @@ class Api {
       headers: this._headers,
     }).then(this._handleResponse);
   }
+
+  setHeadersAuth(token) {
+    this._headers = { ...this._headers, Authorization: `Bearer ${token}` };
+  }
 }
 
 const api = new Api({
   address,
-  token,
 });
 
 export default api;
